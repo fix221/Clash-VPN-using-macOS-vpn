@@ -18,7 +18,7 @@ class PacketForwarder {
     /// Start reading packets from the tunnel
     func start(onPacketsRead: @escaping ([Data], [NSNumber]) -> Void) {
         guard !isRunning else {
-            os_log("Packet forwarder already running", log: logger, type: .warning)
+            os_log("Packet forwarder already running", log: logger, type: .default)
             return
         }
         
