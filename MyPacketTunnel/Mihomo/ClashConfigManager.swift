@@ -5,7 +5,7 @@ import os.log
 class ClashConfigManager {
     
     private let logger: OSLog
-    private let configDirectory: String
+    let configDirectory: String
     
     init(logger: OSLog) {
         self.logger = logger

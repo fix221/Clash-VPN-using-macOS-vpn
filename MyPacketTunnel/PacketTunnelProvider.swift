@@ -170,8 +170,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         forwarder.start { [weak self] packets, protocols in
             guard let self = self else { return }
             
-            for (index, packet) in packets.enumerated() {
-                let protocolNumber = protocols[index]
+            for packet in packets {
                 
                 // Update counters
                 self.readPacketCount += 1
