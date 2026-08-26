@@ -93,7 +93,7 @@ class ClashConfigManager {
             [
                 "name": "PROXY",
                 "type": "select",
-                "proxies": ["DIRECT"] + (proxyServers as? [[String: Any]])?.compactMap { $0["name"] as? String } ?? []
+                "proxies": ["DIRECT"] + proxyServers.compactMap { $0["name"] as? String }
             ] as [String : Any]
         ]
         
@@ -104,10 +104,9 @@ class ClashConfigManager {
             "GEOIP,CN,DIRECT",
             "MATCH,PROXY"
         ] : rules.compactMap { rule in
-            if let dict = rule as? [String: Any],
-               let type = dict["type"] as? String,
-               let value = dict["value"] as? String,
-               let policy = dict["policy"] as? String {
+            if let type = rule["type"] as? String,
+               let value = rule["value"] as? String,
+               let policy = rule["policy"] as? String {
                 return "\(type),\(value),\(policy)"
             }
             return nil

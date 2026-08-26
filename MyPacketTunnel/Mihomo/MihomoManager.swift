@@ -17,7 +17,7 @@ class MihomoManager {
     /// Start Mihomo core with the given configuration
     func start(configPath: String, completion: @escaping (Error?) -> Void) {
         guard !isRunning else {
-            os_log("Mihomo already running", log: logger, type: .warning)
+            os_log("Mihomo already running", log: logger, type: .default)
             completion(nil)
             return
         }
