@@ -17,6 +17,11 @@
 		A1000008 /* PacketForwarder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000008 /* PacketForwarder.swift */; };
 		A1000009 /* MihomoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000009 /* MihomoManager.swift */; };
 		A1000010 /* ClashConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000010 /* ClashConfigManager.swift */; };
+		A1000011 /* VPNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011 /* VPNManager.swift */; };
+		A1000012 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012 /* ProfileManager.swift */; };
+		A1000013 /* LoggerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013 /* LoggerManager.swift */; };
+		A1000014 /* TrafficStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000014 /* TrafficStats.swift */; };
+		A1000015 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000015 /* SettingsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +49,11 @@
 		A2000008 /* PacketForwarder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketForwarder.swift; sourceTree = "<group>"; };
 		A2000009 /* MihomoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MihomoManager.swift; sourceTree = "<group>"; };
 		A2000010 /* ClashConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashConfigManager.swift; sourceTree = "<group>"; };
+		A2000011 /* VPNManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNManager.swift; sourceTree = "<group>"; };
+		A2000012 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
+		A2000013 /* LoggerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerManager.swift; sourceTree = "<group>"; };
+		A2000014 /* TrafficStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficStats.swift; sourceTree = "<group>"; };
+		A2000015 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		A3000001 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		A4000001 /* MyPacketTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; path = MyPacketTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4000002 /* MyClash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = MyClash.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +85,11 @@
 			children = (
 				A2000001 /* MyClashApp.swift */,
 				A2000002 /* ContentView.swift */,
+				A2000011 /* VPNManager.swift */,
+				A2000012 /* ProfileManager.swift */,
+				A2000013 /* LoggerManager.swift */,
+				A2000014 /* TrafficStats.swift */,
+				A2000015 /* SettingsManager.swift */,
 				A2000003 /* Assets.xcassets */,
 				A2000006 /* MyClash.entitlements */,
 			);
@@ -211,6 +226,11 @@
 			files = (
 				A1000001 /* MyClashApp.swift in Sources */,
 				A1000002 /* ContentView.swift in Sources */,
+				A1000011 /* VPNManager.swift in Sources */,
+				A1000012 /* ProfileManager.swift in Sources */,
+				A1000013 /* LoggerManager.swift in Sources */,
+				A1000014 /* TrafficStats.swift in Sources */,
+				A1000015 /* SettingsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
