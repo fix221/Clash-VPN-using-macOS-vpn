@@ -273,7 +273,21 @@ struct ProfilesView: View {
         .frame(minWidth: 700, minHeight: 400)
         .sheet(isPresented: $showImportURL) {
             ImportURLView(urlText: $urlText, importError: $importError) { url in
-                profileManager.importProfileFromURL(url: url)
+                profileManager.importProfileFromURL(url: url) { result in
+                    switch result {
+                    case .success(let profile):
+                        DispatchQueue.main.async {
+                            self.profileManager.addProfile(name: profile.name, url: profile.url, content: profile.content)
+                            self.showImportURL = false
+                            self.urlText = ""
+                            self.importError = nil
+                        }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            self.importError = error.localizedDescription
+                        }
+                    }
+                }
             }
         }
         .sheet(isPresented: $showEditor) {

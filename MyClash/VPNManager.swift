@@ -17,7 +17,7 @@ class VPNManager: ObservableObject {
     }
     
     func loadManager() {
-        NETunnelProviderManager.loadAllFromPreferences { managers, error in
+        NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, error in
             if let error = error {
                 print("Failed to load VPN managers: \(error.localizedDescription)")
                 return
@@ -25,13 +25,13 @@ class VPNManager: ObservableObject {
             
             if let manager = managers?.first {
                 DispatchQueue.main.async {
-                    self.manager = manager
-                    self.vpnStatus = manager.connection.status
-                    self.isConnected = (manager.connection.status == .connected)
-                    self.startMonitoring()
+                    self?.manager = manager
+                    self?.vpnStatus = manager.connection.status
+                    self?.isConnected = (manager.connection.status == .connected)
+                    self?.startMonitoring()
                 }
             } else {
-                createNewVPNConfiguration()
+                self?.createNewVPNConfiguration()
             }
         }
     }
@@ -134,14 +134,10 @@ class VPNManager: ObservableObject {
     }
     
     func sendAppMessage(_ message: String, completion: ((Data?) -> Void)? = nil) {
-        guard let manager = manager else { return }
-        guard let data = message.data(using: .utf8) else { return }
-        
-        manager.connection.sendProviderMessage(data) { responseData in
-            DispatchQueue.main.async {
-                completion?(responseData)
-            }
-        }
+        // Note: sendProviderMessage is not available on macOS NEVPNConnection
+        // This method would need to be implemented through a different mechanism
+        print("Warning: sendAppMessage is not supported on macOS")
+        completion?(nil)
     }
     
     func getStatus() {

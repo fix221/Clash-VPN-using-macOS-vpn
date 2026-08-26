@@ -28,7 +28,10 @@ class LoggerManager: ObservableObject {
             try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         }
         
-        let logFile = directory.appendingPathComponent("logs/\(Date().description(prefix: "YYYY-MM-DD")).log")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: Date())
+        let logFile = directory.appendingPathComponent("logs/\(dateString).log")
         fileURL = logFile
     }
     
@@ -71,7 +74,7 @@ class LoggerManager: ObservableObject {
         }
         
         if let fileHandle = try? FileHandle(forWritingTo: fileURL) {
-            fileHandle.seekToEnd()
+            try? fileHandle.seekToEnd()
             fileHandle.write(data)
             try? fileHandle.close()
         } else {

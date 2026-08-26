@@ -17,7 +17,7 @@ class TrafficStats: ObservableObject {
     private var lastBytesWritten: UInt64 = 0
     private var lastUpdateTime: Date = Date()
     private var timer: Timer?
-    private var speedHistory: [(timestamp: Date, uploadSpeed: Double, downloadSpeed: Double)] = []
+    var speedHistory: [(timestamp: Date, uploadSpeed: Double, downloadSpeed: Double)] = []
     private let maxHistoryPoints = 60
     
     private init() {
@@ -58,7 +58,7 @@ class TrafficStats: ObservableObject {
             DispatchQueue.main.async {
                 if let bytesRead = dict["bytesRead"] as? UInt64,
                    let bytesWritten = dict["bytesWritten"] as? UInt64 {
-                    self.updateTraffic(bytesRead: bytesRead, bytesWritten: bytesWritten)
+                    self?.updateTraffic(bytesRead: bytesRead, bytesWritten: bytesWritten)
                 }
             }
         }
@@ -110,7 +110,7 @@ class TrafficStats: ObservableObject {
         formatter.countStyle = .file
         formatter.includesUnit = true
         let string = formatter.string(fromByteCount: Int64(bytesPerSecond))
-        return (string ?? "0 B") + "/s"
+        return string + "/s"
     }
     
     func resetPeaks() {
