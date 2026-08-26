@@ -10,11 +10,9 @@ class LoggerManager: ObservableObject {
     @Published var maxLogs: Int = 1000
     
     private let logger = OSLog(subsystem: "com.myclash.MyClash", category: "Logger")
-    private let maxLogsLimit: Int
     private var fileURL: URL?
     
     private init() {
-        maxLogsLimit = maxLogs
         setupLogFile()
     }
     
@@ -42,8 +40,8 @@ class LoggerManager: ObservableObject {
         
         DispatchQueue.main.async {
             self.logs.append(entry)
-            if self.logs.count > self.maxLogsLimit {
-                self.logs.removeFirst(self.logs.count - self.maxLogsLimit)
+            if self.logs.count > self.maxLogs {
+                self.logs.removeFirst(self.logs.count - self.maxLogs)
             }
         }
         
