@@ -1,0 +1,59 @@
+name: Build macOS App
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    name: Build macOS App
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Select Xcode version
+        run: |
+          sudo xcode-select -s /Applications/Xcode_15.0.app/Contents/Developer
+          xcodebuild -version
+      
+      - name: List available schemes
+        run: |
+          xcodebuild -list -project MyClash.xcodeproj/project.pbxproj
+      
+      - name: Build MyClash app
+        run: |
+          xcodebuild clean build \
+            -project MyClash.xcodeproj \
+            -scheme MyClash \
+            -destination 'platform=macOS' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO
+      
+      - name: Archive build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyClash-build
+          path: |
+            build/Release/MyClash.app
+          retention-days: 30
+      
+      - name: Create DMG (optional)
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: |
+          mkdir -p dist
+          cp -R build/Release/MyClash.app dist/
+          hdiutil create -volname "MyClash" -srcfolder dist/MyClash.app -ov -format UDZO dist/MyClash.dmg
+      
+      - name: Upload DMG artifact
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyClash-dmg
+          path: dist/MyClash.dmg
+          retention-days: 90
