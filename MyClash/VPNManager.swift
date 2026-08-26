@@ -11,7 +11,7 @@ class VPNManager: ObservableObject {
     @Published var manager: NETunnelProviderManager?
     
     private var timer: Timer?
-    private let providerBundleIdentifier = "com.myclash.MyPacketTunnel"
+    private let providerBundleIdentifier = "com.myclash.MyClash.MyPacketTunnel"
     
     private init() {
         loadManager()
