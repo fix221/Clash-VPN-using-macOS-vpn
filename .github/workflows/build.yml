@@ -33,10 +33,12 @@ jobs:
       
       - name: Build MyClash app
         run: |
+          mkdir -p build
           xcodebuild clean build \
             -project MyClash.xcodeproj \
             -scheme MyClash \
             -destination 'platform=macOS' \
+            -derivedDataPath build/DerivedData \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO
@@ -47,14 +49,14 @@ jobs:
         with:
           name: MyClash-build
           path: |
-            build/Release/MyClash.app
+            build/DerivedData/Build/Products/Debug/MyClash.app
           retention-days: 30
       
       - name: Create DMG (optional)
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: |
           mkdir -p dist
-          cp -R build/Release/MyClash.app dist/
+          cp -R build/DerivedData/Build/Products/Debug/MyClash.app dist/
           hdiutil create -volname "MyClash" -srcfolder dist/MyClash.app -ov -format UDZO dist/MyClash.dmg
       
       - name: Upload DMG artifact

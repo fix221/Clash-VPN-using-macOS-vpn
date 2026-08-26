@@ -42,8 +42,8 @@
 		A2000006 /* MyClash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyClash.entitlements; sourceTree = "<group>"; };
 		A2000007 /* MyPacketTunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyPacketTunnel.entitlements; sourceTree = "<group>"; };
 		A2000008 /* PacketForwarder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketForwarder.swift; sourceTree = "<group>"; };
-		A2000009 /* MihomoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MihomoManager.swift; sourceTree = "<group>"; };
-		A2000010 /* ClashConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashConfigManager.swift; sourceTree = "<group>"; };
+		A2000009 /* MihomoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mihomo/MihomoManager.swift; sourceTree = "<group>"; };
+		A2000010 /* ClashConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mihomo/ClashConfigManager.swift; sourceTree = "<group>"; };
 		A3000001 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		A4000001 /* MyPacketTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; path = MyPacketTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4000002 /* MyClash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = MyClash.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,12 +86,20 @@
 			children = (
 				A2000004 /* PacketTunnelProvider.swift */,
 				A2000008 /* PacketForwarder.swift */,
-				A2000009 /* MihomoManager.swift */,
-				A2000010 /* ClashConfigManager.swift */,
+				A7000005 /* Mihomo */,
 				A2000005 /* Info.plist */,
 				A2000007 /* MyPacketTunnel.entitlements */,
 			);
 			path = MyPacketTunnel;
+			sourceTree = "<group>";
+		};
+		A7000005 /* Mihomo */ = {
+			isa = PBXGroup;
+			children = (
+				A2000009 /* MihomoManager.swift */,
+				A2000010 /* ClashConfigManager.swift */,
+			);
+			path = Mihomo;
 			sourceTree = "<group>";
 		};
 		A7000004 /* Products */ = {
