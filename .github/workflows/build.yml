@@ -29,7 +29,7 @@ jobs:
       
       - name: List available schemes
         run: |
-          xcodebuild -list -project MyClash.xcodeproj/project.pbxproj
+          xcodebuild -list -project MyClash.xcodeproj
       
       - name: Build MyClash app
         run: |
