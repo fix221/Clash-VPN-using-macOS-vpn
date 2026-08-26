@@ -10,7 +10,6 @@ class VPNManager: ObservableObject {
     @Published var errorMessage: String?
     @Published var manager: NETunnelProviderManager?
     
-    private var statusMonitor: NEVPNStatusMonitor?
     private var timer: Timer?
     
     private init() {
