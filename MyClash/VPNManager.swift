@@ -11,6 +11,7 @@ class VPNManager: ObservableObject {
     @Published var manager: NETunnelProviderManager?
     
     private var timer: Timer?
+    private let providerBundleIdentifier = "com.myclash.MyPacketTunnel"
     
     private init() {
         loadManager()
@@ -19,7 +20,7 @@ class VPNManager: ObservableObject {
     func loadManager() {
         NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, error in
             if let error = error {
-                print("Failed to load VPN managers: \(error.localizedDescription)")
+                self?.reportError("Failed to load VPN configurations", error: error)
                 return
             }
             
@@ -41,24 +42,20 @@ class VPNManager: ObservableObject {
         manager.localizedDescription = "MyClash VPN"
         
         let protocolConfig = NETunnelProviderProtocol()
-        protocolConfig.providerBundleIdentifier = "com.myclash.MyPacketTunnel"
+        protocolConfig.providerBundleIdentifier = providerBundleIdentifier
         protocolConfig.serverAddress = "MyClash VPN"
         manager.protocolConfiguration = protocolConfig
         
         manager.isEnabled = true
         manager.saveToPreferences { error in
             if let error = error {
-                DispatchQueue.main.async {
-                    self.errorMessage = "Failed to save VPN configuration: \(error.localizedDescription)"
-                }
+                self.reportError("Failed to save VPN configuration", error: error)
                 return
             }
             
             manager.loadFromPreferences { error in
                 if let error = error {
-                    DispatchQueue.main.async {
-                        self.errorMessage = "Failed to load VPN configuration: \(error.localizedDescription)"
-                    }
+                    self.reportError("Failed to load VPN configuration", error: error)
                     return
                 }
                 
@@ -93,17 +90,13 @@ class VPNManager: ObservableObject {
         manager.isEnabled = true
         manager.saveToPreferences { [weak self] error in
             if let error = error {
-                DispatchQueue.main.async {
-                    self?.errorMessage = "Failed to save VPN configuration: \(error.localizedDescription)"
-                }
+                self?.reportError("Failed to save VPN configuration", error: error)
                 return
             }
             
             manager.loadFromPreferences { [weak self] error in
                 if let error = error {
-                    DispatchQueue.main.async {
-                        self?.errorMessage = "Failed to load VPN configuration: \(error.localizedDescription)"
-                    }
+                    self?.reportError("Failed to load VPN configuration", error: error)
                     return
                 }
                 
@@ -111,9 +104,7 @@ class VPNManager: ObservableObject {
                     try manager.connection.startVPNTunnel()
                     self?.vpnStatus = .connecting
                 } catch {
-                    DispatchQueue.main.async {
-                        self?.errorMessage = "Failed to start VPN: \(error.localizedDescription)"
-                    }
+                    self?.reportError("Failed to start VPN", error: error)
                 }
             }
         }
@@ -155,6 +146,25 @@ class VPNManager: ObservableObject {
         case .invalid: return "Invalid"
         case .reasserting: return "Reasserting..."
         @unknown default: return "Unknown"
+        }
+    }
+
+    private func reportError(_ operation: String, error: Error) {
+        let nsError = error as NSError
+        let details = """
+        \(operation)
+        Domain: \(nsError.domain)
+        Code: \(nsError.code)
+        Description: \(nsError.localizedDescription)
+        Reason: \(nsError.localizedFailureReason ?? "Not provided")
+        Recovery: \(nsError.localizedRecoverySuggestion ?? "Not provided")
+        Provider: \(providerBundleIdentifier)
+        macOS: \(ProcessInfo.processInfo.operatingSystemVersionString)
+        """
+
+        print(details)
+        DispatchQueue.main.async { [weak self] in
+            self?.errorMessage = details
         }
     }
 }
